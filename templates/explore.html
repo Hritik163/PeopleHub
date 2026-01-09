@@ -162,7 +162,12 @@
         <!-- SIDEBAR -->
         <nav class="col-md-2 d-none d-md-block sidebar">
             <div class="text-center mt-3">
-                <img src="{{profile.profileimg.url}}" class="profile-pic">
+                {% if profile.profileimg and profile.profileimg.url %}
+                  <img src="{{ profile.profileimg.url }}" class="profile-pic">
+                {% else %}
+                  <img src="{% static 'css/upload.png' %}" class="profile-pic">
+                {% endif %}
+
                 <h4 class="mt-2">
                     <a href="/profile/{{user}}">{{user}}</a>
                 </h4>
