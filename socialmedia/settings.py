@@ -21,7 +21,13 @@ SECRET_KEY = os.environ.get(
 
 DEBUG = False   # ✅ production ke liye
 
-ALLOWED_HOSTS = ['*']   # ✅ free hosting ke liye
+ALLOWED_HOSTS = [
+    "peoplehub.onrender.com",
+    "www.peoplehub.onrender.com",
+    "localhost",
+    "127.0.0.1"
+]
+  # ✅ free hosting ke liye
 
 
 # ========================
@@ -153,3 +159,7 @@ SESSION_EXPIRE_AT_BROWSER_CLOSE = False
 # ========================
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+CSRF_TRUSTED_ORIGINS = [
+    "https://peoplehub.onrender.com"
+]
