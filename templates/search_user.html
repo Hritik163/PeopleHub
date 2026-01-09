@@ -1,0 +1,37 @@
+<div class="container mt-4 search-results">
+
+    <!-- Title -->
+    <h4 class="fw-bold mb-3">
+        Search Results for "<span class="text-primary">{{ query }}</span>"
+    </h4>
+
+    <!-- Users -->
+    <div class="card shadow-sm search-card">
+        <div class="card-header fw-bold">
+            User Profiles
+        </div>
+
+        <div class="list-group list-group-flush">
+            {% for user in users %}
+            <a href="/profile/{{ user.user.username }}"
+               class="list-group-item list-group-item-action d-flex align-items-center">
+                
+                <!-- Avatar -->
+                <div class="user-avatar me-3">
+                    <i class="fa-solid fa-user"></i>
+                </div>
+
+                <!-- Username -->
+                <div class="fw-semibold">
+                    {{ user.user.username }}
+                </div>
+            </a>
+            {% empty %}
+            <div class="p-3 text-muted text-center">
+                No users found
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+</div>

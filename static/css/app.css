@@ -1,0 +1,238 @@
+/* Edit Profile Modal */
+.edit-profile-modal {
+    border-radius: 14px;
+    overflow: hidden;
+}
+
+.edit-profile-modal .modal-header {
+    background-color: #08139f;
+    color: white;
+}
+
+.edit-profile-modal .modal-title {
+    font-weight: 700;
+}
+
+.edit-profile-modal .form-control {
+    border-radius: 8px;
+    padding: 10px;
+}
+
+.edit-profile-modal .form-control:focus {
+    border-color: #08139f;
+    box-shadow: 0 0 0 0.15rem rgba(8, 19, 159, 0.25);
+}
+
+/* Upload icon */
+.upload-icon {
+    width: 70px;
+    opacity: 0.8;
+}
+
+/* Primary button */
+.custom-btn {
+    background-color: #08139f;
+    border: none;
+    font-weight: 600;
+}
+
+.custom-btn:hover {
+    background-color: #1b2cff;
+}
+
+/* Mobile adjustments */
+@media (max-width: 576px) {
+    .modal-dialog {
+        margin: 10px;
+    }
+}
+/* Create Post Modal */
+.create-post-modal {
+    border-radius: 14px;
+    overflow: hidden;
+}
+
+.create-post-modal .modal-header {
+    background-color: #08139f;
+    color: white;
+}
+
+.create-post-modal .modal-title {
+    font-weight: 700;
+}
+
+.create-post-modal .form-control {
+    border-radius: 8px;
+    padding: 10px;
+}
+
+.create-post-modal .form-control:focus {
+    border-color: #08139f;
+    box-shadow: 0 0 0 0.15rem rgba(8, 19, 159, 0.25);
+}
+
+/* Upload icon */
+.upload-icon {
+    width: 70px;
+    opacity: 0.85;
+}
+
+/* Primary action button */
+.custom-btn {
+    background-color: #08139f;
+    border: none;
+    font-weight: 600;
+}
+
+.custom-btn:hover {
+    background-color: #1b2cff;
+}
+
+/* Mobile */
+@media (max-width: 576px) {
+    .modal-dialog {
+        margin: 10px;
+    }
+}
+/* Create / Upload Post Modal */
+.create-post-modal {
+    border-radius: 14px;
+    overflow: hidden;
+}
+
+.create-post-modal .modal-header {
+    background-color: #08139f;
+    color: white;
+}
+
+.create-post-modal .modal-title {
+    font-weight: 700;
+}
+
+.create-post-modal .form-control {
+    border-radius: 8px;
+    padding: 10px;
+}
+
+.create-post-modal .form-control:focus {
+    border-color: #08139f;
+    box-shadow: 0 0 0 0.15rem rgba(8, 19, 159, 0.25);
+}
+
+/* Upload icon */
+.upload-icon {
+    width: 70px;
+    opacity: 0.85;
+}
+
+/* Primary button */
+.custom-btn {
+    background-color: #08139f;
+    border: none;
+    font-weight: 600;
+}
+
+.custom-btn:hover {
+    background-color: #1b2cff;
+}
+
+/* Mobile spacing */
+@media (max-width: 576px) {
+    .modal-dialog {
+        margin: 10px;
+    }
+}
+/* ---------- SEARCH RESULTS ---------- */
+
+.search-results h4 {
+    color: #08139f;
+}
+
+.search-card {
+    border-radius: 14px;
+    overflow: hidden;
+}
+
+.search-card .card-header {
+    background-color: #08139f;
+    color: white;
+}
+
+.search-card .list-group-item {
+    padding: 14px 18px;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.search-card .list-group-item:hover {
+    background-color: #f3f4fa;
+    transform: translateX(5px);
+}
+
+/* Avatar icon */
+.user-avatar {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background-color: #08139f;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+}
+
+/* Mobile spacing */
+@media (max-width: 576px) {
+    .search-results {
+        padding: 0 5px;
+    }
+}
+/* ---------- SEARCH MODAL ---------- */
+
+.search-modal {
+    border-radius: 14px;
+    overflow: hidden;
+}
+
+.search-modal .modal-header {
+    background-color: #08139f;
+    color: white;
+}
+
+.search-modal .modal-title {
+    font-weight: 700;
+}
+
+.search-input-group {
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.search-input {
+    border: none;
+    padding: 14px;
+    font-size: 16px;
+}
+
+.search-input:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+.search-btn {
+    background-color: #08139f;
+    color: white;
+    border: none;
+    padding: 0 20px;
+}
+
+.search-btn:hover {
+    background-color: #1b2cff;
+}
+
+/* Mobile spacing */
+@media (max-width: 576px) {
+    .modal-dialog {
+        margin: 10px;
+    }
+}
