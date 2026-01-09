@@ -267,3 +267,12 @@ def follow(request):
         return redirect('/profile/' + user)
 
     return redirect('/')
+@login_required(login_url='/loginn')
+def home_post(request, id):
+    post = get_object_or_404(Post, id=id)
+    profile = Profile.objects.get(user=request.user)
+
+    return render(request, 'main.html', {
+        'post': [post],
+        'profile': profile
+    })
