@@ -175,7 +175,12 @@
         <!-- SIDEBAR -->
         <nav class="col-md-2 d-none d-md-block sidebar">
             <div class="text-center mt-3">
-                <img src="{{ profile.profileimg.url }}" class="profile-pic">
+                {% if profile.profileimg and profile.profileimg.url %}
+                   <img src="{{ profile.profileimg.url }}" class="profile-pic">
+                {% else %}
+                  <img src="{% static 'css/upload.png' %}" class="profile-pic">
+                {% endif %}
+
                 <h4 class="mt-2">
                     <a href="/profile/{{ user }}">{{ user }}</a>
                 </h4>
@@ -222,7 +227,12 @@
 
                     <!-- COVER -->
                     <div class="profile-cover">
-                        <img src="{{ user_profile.profileimg.url }}" class="profile-avatar">
+                        {% if user_profile.profileimg and user_profile.profileimg.url %}
+                          <img src="{{ user_profile.profileimg.url }}" class="profile-avatar">
+                        {% else %}
+                           <img src="{% static 'css/upload.png' %}" class="profile-avatar">
+                        {% endif %}
+
                     </div>
 
                     <!-- INFO -->
@@ -279,7 +289,10 @@
                         <div class="post-grid">
                             {% for pos in user_posts %}
                             <div class="post-item">
-                                <img src="{{ pos.image.url }}">
+                                {% if pos.image and pos.image.url %}
+                                   <img src="{{ pos.image.url }}">
+                                {% endif %}
+
                                 <div class="card-body">
                                     {{ pos.caption }}
                                     {% if user == user_profile.user %}
