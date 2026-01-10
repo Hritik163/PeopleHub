@@ -158,40 +158,50 @@ def explore(request):
 # PROFILE
 # =========================
 @login_required(login_url='/loginn')
-def profile(request, id_user):
-    user_object = get_object_or_404(User, username=id_user)
+def profile(request, user_id):
+   
+    user_object = get_object_or_404(User, id=user_id)
 
-    profile, created = Profile.objects.get_or_create(
+    
+    profile, _ = Profile.objects.get_or_create(
         user=request.user,
         defaults={'id_user': request.user.id}
     )
 
-    user_profile, created = Profile.objects.get_or_create(
+    user_profile, _ = Profile.objects.get_or_create(
         user=user_object,
         defaults={'id_user': user_object.id}
     )
 
-    user_posts = Post.objects.filter(user=id_user).order_by('-created_at')
+    
+    user_posts = Post.objects.filter(
+        user=user_object.username
+    ).order_by('-created_at')
 
+    # follow / unfollow status
     follow_unfollow = 'Follow'
     if Followers.objects.filter(
         follower=request.user.username,
-        user=id_user
+        user=user_object.username
     ).exists():
         follow_unfollow = 'Unfollow'
 
-    if request.method == 'POST' and request.user.username == id_user:
-        bio = request.POST.get('bio')
-        location = request.POST.get('location')
+    # ------------------
+    # PROFILE UPDATE (POST)
+    # ------------------
+    if request.method == 'POST' and request.user == user_object:
+        bio = request.POST.get('bio', '')
+        location = request.POST.get('location', '')
         image = request.FILES.get('image')
 
         if image:
             user_profile.profileimg = image
+
         user_profile.bio = bio
         user_profile.location = location
         user_profile.save()
 
-        return redirect('/profile/' + id_user)
+        return redirect('profile', user_id=user_object.id)
 
     context = {
         'user_object': user_object,
@@ -200,12 +210,15 @@ def profile(request, id_user):
         'user_post_length': user_posts.count(),
         'profile': profile,
         'follow_unfollow': follow_unfollow,
-        'user_followers': Followers.objects.filter(user=id_user).count(),
-        'user_following': Followers.objects.filter(follower=id_user).count(),
+        'user_followers': Followers.objects.filter(
+            user=user_object.username
+        ).count(),
+        'user_following': Followers.objects.filter(
+            follower=user_object.username
+        ).count(),
     }
 
     return render(request, 'profile.html', context)
-
 
 # =========================
 # DELETE POST (SECURE)
@@ -218,7 +231,9 @@ def delete(request, id):
         user=request.user.username
     )
     post.delete()
-    return redirect('/profile/' + request.user.username)
+    return redirect('profile', user_id=request.user.id)
+
+
 
 
 # =========================
@@ -264,13 +279,18 @@ def follow(request):
                 user=user
             )
 
-        return redirect('/profile/' + user)
+        user_obj = get_object_or_404(User, username=user)
+        return redirect('profile', user_id=user_obj.id)
 
     return redirect('/')
+
 @login_required(login_url='/loginn')
 def home_post(request, id):
     post = get_object_or_404(Post, id=id)
-    profile = Profile.objects.get(user=request.user)
+    profile, _ = Profile.objects.get_or_create(
+        user=request.user,
+        defaults={'id_user': request.user.id}
+    )
 
     return render(request, 'main.html', {
         'post': [post],

@@ -13,7 +13,7 @@ urlpatterns = [
     path('delete/<int:id>/', views.delete, name='delete'),
 
     path('explore/', views.explore, name='explore'),
-    path('profile/<str:id_user>/', views.profile, name='profile'),
+    path('profile/<int:user_id>/', views.profile, name='profile'),
 
     path('search/', views.search_results, name='search_results'),
     path('follow/', views.follow, name='follow'),

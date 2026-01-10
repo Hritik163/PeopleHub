@@ -157,7 +157,8 @@
                 {% endif %}
 
                 <h4 class="mt-2">
-                    <a href="/profile/{{user}}">{{user}}</a>
+                   <a href="{% url 'profile' user.id %}">{{ user.username }}</a>
+
                 </h4>
             </div>
 
@@ -183,7 +184,8 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/profile/{{user}}">
+                    <a class="nav-link active" href="{% url 'profile' user.id %}">
+
                         <i class="fa-solid fa-user"></i> Profile
                     </a>
                 </li>
@@ -208,7 +210,8 @@
 
                         <div class="post-card" id="{{pos.id}}">
                             <div class="post-header">
-                                <a href="/profile/{{pos.user}}">{{pos.user}}</a>
+                                <a href="{% url 'profile' pos.user_id %}">{{ pos.user }}</a>
+
                             </div>
 
                             {% if pos.image and pos.image.url %}
