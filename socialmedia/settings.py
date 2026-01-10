@@ -19,7 +19,7 @@ SECRET_KEY = os.environ.get(
     'django-insecure-change-this-in-production'
 )
 
-DEBUG = False   # ✅ production ke liye
+DEBUG = False  # ✅ production ke liye
 
 ALLOWED_HOSTS = [
     "peoplehub.onrender.com",
@@ -167,13 +167,25 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CSRF_TRUSTED_ORIGINS = [
     "https://peoplehub.onrender.com"
 ]
+import os
+from pathlib import Path
 
-import cloudinary
+BASE_DIR = Path(__file__).resolve().parent.parent
 
-cloudinary.config(
-    cloud_name = os.environ.get("CLOUDINARY_CLOUD_NAME"),
-    api_key = os.environ.get("CLOUDINARY_API_KEY"),
-    api_secret = os.environ.get("CLOUDINARY_API_SECRET"),
-)
+ENVIRONMENT = os.environ.get("ENVIRONMENT", "development")
 
-DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+# ========================
+# MEDIA / STORAGE
+# ========================
+
+if ENVIRONMENT == "production":
+    DEFAULT_FILE_STORAGE = "cloudinary_storage.storage.MediaCloudinaryStorage"
+
+    CLOUDINARY_STORAGE = {
+        "CLOUD_NAME": os.environ.get("CLOUDINARY_CLOUD_NAME"),
+        "API_KEY": os.environ.get("CLOUDINARY_API_KEY"),
+        "API_SECRET": os.environ.get("CLOUDINARY_API_SECRET"),
+    }
+else:
+    MEDIA_URL = "/media/"
+    MEDIA_ROOT = BASE_DIR / "media"

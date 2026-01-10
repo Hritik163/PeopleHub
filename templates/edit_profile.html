@@ -1,60 +1,37 @@
 {% load static %}
 
-<div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-md">
-        <div class="modal-content edit-profile-modal">
+<div class="modal fade" id="exampleModal1" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
 
-            <!-- Header -->
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Edit Profile</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
+      <div class="modal-header">
+        <h5 class="modal-title">Edit Profile</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
 
-            <!-- Body -->
-            <div class="modal-body">
-                <form method="POST" action="{% url 'profile' user_object.id %}" enctype="multipart/form-data">
-                    {% csrf_token %}
+      <div class="modal-body">
+        <!-- 🔴 ACTION blank = same profile URL -->
+        <form method="POST" enctype="multipart/form-data">
+          {% csrf_token %}
 
-                    <!-- Profile Image Upload -->
-                    <div class="mb-4 text-center">
-                        <img src="{% static 'css/upload.png' %}" alt="Upload"
-                             class="upload-icon mb-2">
-                        <label class="form-label d-block fw-bold">Profile Photo</label>
-                        <input type="file" name="image" class="form-control">
-                    </div>
+          <input type="file" name="image" class="form-control mb-3">
 
-                    <!-- Bio -->
-                    <div class="mb-3">
-                        <label class="form-label fw-bold">Bio</label>
-                        <textarea class="form-control"
-                                  name="bio"
-                                  rows="3"
-                                  placeholder="Write something about yourself...">{{ user_profile.bio }}</textarea>
-                    </div>
+          <textarea name="bio"
+                    class="form-control mb-3"
+                    placeholder="Bio">{{ user_profile.bio }}</textarea>
 
-                    <!-- Location -->
-                    <div class="mb-3">
-                        <label class="form-label fw-bold">Location</label>
-                        <input type="text"
-                               class="form-control"
-                               name="location"
-                               placeholder="Your city"
-                               value="{{ user_profile.location }}">
-                    </div>
+          <input type="text"
+                 name="location"
+                 class="form-control mb-3"
+                 value="{{ user_profile.location }}"
+                 placeholder="Location">
 
-                    <!-- Footer Buttons -->
-                    <div class="modal-footer px-0">
-                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
-                            Cancel
-                        </button>
-                        <button type="submit" class="btn btn-primary custom-btn">
-                            Update Profile
-                        </button>
-                    </div>
+          <button type="submit" class="btn btn-primary w-100">
+            Update Profile
+          </button>
+        </form>
+      </div>
 
-                </form>
-            </div>
-
-        </div>
     </div>
+  </div>
 </div>

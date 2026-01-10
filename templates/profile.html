@@ -1,315 +1,80 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>{{ user_profile.user }}</title>
 
-    <!-- Bootstrap 5 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Font Awesome -->
     <script src="https://kit.fontawesome.com/cb792c0850.js" crossorigin="anonymous"></script>
-
     <link rel="stylesheet" href="{% static 'css/app.css' %}">
-
-    <style>
-        body {
-            background-color: #f5f6fa;
-        }
-
-        /* ---------- SIDEBAR ---------- */
-        .sidebar {
-            background-color: #08139f;
-            height: 100vh;
-            padding: 20px 12px;
-            position: fixed;
-        }
-
-        .profile-pic {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 3px solid white;
-        }
-
-        .sidebar h4 a {
-            color: white;
-            font-weight: 700;
-            text-decoration: none;
-        }
-
-        .sidebar .nav-item {
-            margin-bottom: 10px;
-        }
-
-        .sidebar .nav-link {
-            color: white;
-            font-weight: 700;
-            padding: 12px 16px;
-            border-radius: 8px;
-            transition: all 0.3s ease;
-        }
-
-        .sidebar .nav-link i {
-            margin-right: 10px;
-        }
-
-        .sidebar .nav-link:hover {
-            background-color: #1b2cff;
-            transform: translateX(5px);
-        }
-
-        .sidebar .nav-link.active {
-            background-color: white;
-            color: #08139f;
-        }
-
-        .sidebar .nav-link.active i {
-            color: #08139f;
-        }
-
-        /* ---------- MAIN ---------- */
-        main {
-            margin-left: 16.66%;
-            padding-top: 20px;
-        }
-
-        /* ---------- PROFILE HEADER ---------- */
-        .profile-card {
-            border-radius: 18px;
-            overflow: hidden;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
-        }
-
-        .profile-cover {
-            background: linear-gradient(135deg, #08139f, #1b2cff);
-            height: 180px;
-            position: relative;
-        }
-
-        .profile-avatar {
-            width: 140px;
-            height: 140px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 4px solid white;
-            position: absolute;
-            bottom: -70px;
-            left: 30px;
-            background: white;
-        }
-
-        .profile-info {
-            padding: 90px 30px 20px;
-        }
-
-        .profile-info h4 {
-            font-weight: 700;
-        }
-
-        .stats-box {
-            background: #f3f4fa;
-            padding: 15px;
-            border-radius: 12px;
-            margin-top: 15px;
-        }
-
-        /* ---------- POSTS GRID ---------- */
-        .post-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-            gap: 15px;
-            margin-top: 20px;
-        }
-
-        .post-item {
-            border-radius: 12px;
-            overflow: hidden;
-            background: white;
-            box-shadow: 0 6px 18px rgba(0,0,0,0.08);
-        }
-
-        .post-item img {
-            width: 100%;
-            height: 180px;
-            object-fit: cover;
-        }
-
-        .post-item .card-body {
-            padding: 10px;
-            font-size: 14px;
-        }
-
-        /* ---------- MOBILE ---------- */
-        @media (max-width: 768px) {
-            .sidebar {
-                display: none;
-            }
-
-            main {
-                margin-left: 0;
-            }
-
-            .profile-avatar {
-                left: 50%;
-                transform: translateX(-50%);
-            }
-
-            .profile-info {
-                text-align: center;
-            }
-        }
-    </style>
 </head>
 
 <body>
-
 <div class="container-fluid">
     <div class="row">
 
         <!-- SIDEBAR -->
         <nav class="col-md-2 d-none d-md-block sidebar">
             <div class="text-center mt-3">
-                {% if profile.profileimg and profile.profileimg.url %}
-                   <img src="{{ profile.profileimg.url }}" class="profile-pic">
+                {% if profile.profileimg %}
+                    <img src="{{ profile.profileimg.url }}" class="profile-pic">
                 {% else %}
-                  <img src="{% static 'css/upload.png' %}" class="profile-pic">
+                    <img src="{% static 'css/upload.png' %}" class="profile-pic">
                 {% endif %}
 
                 <h4 class="mt-2">
                     <a href="{% url 'profile' user.id %}">{{ user.username }}</a>
-
                 </h4>
             </div>
-
-            <ul class="nav flex-column mt-4">
-                <li class="nav-item">
-                    <a class="nav-link" href="/">
-                        <i class="fa-solid fa-house"></i> Home
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/explore">
-                        <i class="fa-solid fa-compass"></i> Explore
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-bs-toggle="modal" data-bs-target="#exampleModal3">
-                        <i class="fa-solid fa-magnifying-glass"></i> Search
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active" href="{% url 'profile' user.id %}">
->
-                        <i class="fa-solid fa-user"></i> Profile
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/logoutt">
-                        <i class="fa-solid fa-right-from-bracket"></i> Logout
-                    </a>
-                </li>
-            </ul>
         </nav>
 
         <!-- MAIN -->
         <main class="col-md-10 px-md-4">
-
-            {% include "search.html" %}
-            {% include "profile_upload.html" %}
             {% include "edit_profile.html" %}
 
             <div class="container mt-4">
-                <div class="profile-card">
 
-                    <!-- COVER -->
-                    <div class="profile-cover">
-                        {% if user_profile.profileimg and user_profile.profileimg.url %}
-                          <img src="{{ user_profile.profileimg.url }}" class="profile-avatar">
-                        {% else %}
-                           <img src="{% static 'css/upload.png' %}" class="profile-avatar">
-                        {% endif %}
+                <h3>{{ user_profile.user }}</h3>
+                <p>{{ user_profile.bio }}</p>
+                <p>{{ user_profile.location }}</p>
 
-                    </div>
+                {% if user == user_profile.user %}
+                    <button class="btn btn-outline-secondary mb-3"
+                            data-bs-toggle="modal"
+                            data-bs-target="#exampleModal1">
+                        Edit Profile
+                    </button>
+                {% endif %}
 
-                    <!-- INFO -->
-                    <div class="profile-info">
-                        <h4>{{ user_profile.user }}</h4>
-                        <p class="text-muted">
-                            <i class="fa-solid fa-location-dot"></i>
-                            {{ user_profile.location }}
-                        </p>
+                <hr>
 
-                        {% if user != user_profile.user %}
-                        <form action="/follow" method="POST">
-                            {% csrf_token %}
-                            <input type="hidden" name="user" value="{{ user_object.username }}">
-                            <button class="btn btn-outline-primary">
-                                {{ follow_unfollow }}
-                            </button>
-                        </form>
-                        {% endif %}
+                <div class="row">
+                    {% for pos in user_posts %}
+                    <div class="col-md-4 mb-3">
+                        <div class="card">
 
-                        {% if user == user_profile.user %}
-                        <button class="btn btn-outline-secondary mt-2"
-                                data-bs-toggle="modal"
-                                data-bs-target="#exampleModal1">
-                            Edit Profile
-                        </button>
-                        {% endif %}
+                            {% if pos.image %}
+                                <img src="{{ pos.image.url }}" class="card-img-top">
+                            {% endif %}
 
-                        <!-- STATS -->
-                        <div class="stats-box d-flex justify-content-around text-center">
-                            <div>
-                                <h5>{{ user_post_length }}</h5>
-                                <small>Posts</small>
-                            </div>
-                            <div>
-                                <h5>{{ user_followers }}</h5>
-                                <small>Followers</small>
-                            </div>
-                            <div>
-                                <h5>{{ user_following }}</h5>
-                                <small>Following</small>
-                            </div>
-                        </div>
+                            <div class="card-body">
+                                <p>{{ pos.caption }}</p>
 
-                        <!-- BIO -->
-                        <div class="mt-4">
-                            <h6 class="fw-bold">About</h6>
-                            <p>{{ user_profile.bio }}</p>
-                        </div>
-
-                        <!-- POSTS -->
-                        <h6 class="fw-bold mt-4">Photos</h6>
-                        <div class="post-grid">
-                            {% for pos in user_posts %}
-                            <div class="post-item">
-                                {% if pos.image and pos.image.url %}
-                                   <img src="{{ pos.image.url }}">
-                                {% endif %}
-
-                                <div class="card-body">
-                                    {{ pos.caption }}
-                                    {% if user == user_profile.user %}
-                                    <a href="/delete/{{ pos.id }}" class="float-end text-danger">
-                                        <i class="fa-solid fa-trash"></i>
+                                {% if user == user_profile.user %}
+                                    <!-- ✅ UUID SAFE DELETE -->
+                                    <a href="{% url 'delete' pos.id %}"
+                                       class="text-danger">
+                                       Delete
                                     </a>
-                                    {% endif %}
-                                </div>
+                                {% endif %}
                             </div>
-                            {% endfor %}
                         </div>
-
                     </div>
+                    {% endfor %}
                 </div>
-            </div>
 
+            </div>
         </main>
     </div>
 </div>
