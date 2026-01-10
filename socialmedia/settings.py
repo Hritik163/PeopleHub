@@ -88,3 +88,4 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 CSRF_TRUSTED_ORIGINS = [
     "https://peoplehub.onrender.com",
 ]
+SECRET_KEY = os.environ.get("SECRET_KEY")
